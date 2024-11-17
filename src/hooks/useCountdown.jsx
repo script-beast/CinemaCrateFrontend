@@ -1,0 +1,39 @@
+import React from "react";
+
+const useCountdown = (endDate) => {
+  const [timeStamp, setTimeStamp] = React.useState(0);
+  React.useEffect(() => {
+    if (endDate) {
+      const diffTimeStamp = +new Date(endDate) - +new Date();
+      setTimeStamp(diffTimeStamp);
+    }
+  }, [endDate]);
+
+  const [diffTimeData, setDiffTimeData] = React.useState({
+    diffDay: 0,
+    diffHour: 0,
+    diffMin: 0,
+    diffSec: 0,
+  });
+  const getTimer = (timeStamp) => {
+    const diffDay = Math.floor(timeStamp / (1000 * 60 * 60 * 24));
+    const diffHour = Math.floor(
+      (timeStamp % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const diffMin = Math.floor((timeStamp % (1000 * 60 * 60)) / (1000 * 60));
+    const diffSec = Math.floor((timeStamp % (1000 * 60)) / 1000);
+    return { diffDay, diffHour, diffMin, diffSec };
+  };
+  React.useEffect(() => {
+    if (!timeStamp) return;
+    const timer = setInterval(() => {
+      setDiffTimeData(getTimer(timeStamp - 1000));
+      setTimeStamp(timeStamp - 1000);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [timeStamp]);
+
+  return diffTimeData;
+};
+
+export default useCountdown;

@@ -1,0 +1,21 @@
+:root {
+    --sideNav-width: 280px;
+    --border-color: #e5eaef;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  
